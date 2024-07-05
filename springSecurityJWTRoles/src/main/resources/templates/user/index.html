@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <!-- Content to display for users with the 'EMPLOYEE' role -->
+        <p>Welcome, Administrator!</p>
+    </div>
+<div sec:authorize="hasAuthority('USER')">
+    <!-- Content to display for users with the 'USER' role and name 'user' -->
+    <p>I am user</p>
+</div>
+<div sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
+    <!-- Content to display for users without the 'ADMIN' and 'USER' roles -->
+    <p>Welcome, Guest!</p>
+</div>
+<p th:text="${user}"></p>
+
+<div sec:authorize="!hasRole('USER')">Text visible to admin.</div>
+        
+        <div sec:authorize="isAuthenticated()">
+            Text visible only to authenticated users.
+        </div>
+        
+</body>
+</html>
+
